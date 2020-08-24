@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Layout from "../components/Layout";
 import { Segment, Grid, Form, Button, Divider } from "semantic-ui-react";
+import router from "next/router";
 
 export class login extends Component {
   render() {
@@ -30,7 +31,12 @@ export class login extends Component {
               </Grid.Column>
 
               <Grid.Column verticalAlign="middle">
-                <Button content="Sign up" icon="signup" size="big" />
+                <Button
+                  content="Sign up"
+                  icon="signup"
+                  onClick={() => router.push("/register")}
+                  size="big"
+                />
               </Grid.Column>
             </Grid>
             <div className="vertical">

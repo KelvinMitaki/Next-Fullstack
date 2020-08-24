@@ -8,7 +8,7 @@ const Layout = ({ children, title }) => {
       <Head>
         <title>{title}</title>
       </Head>
-      <Container>{children}</Container>;
+      <Container>{children}</Container>
     </React.Fragment>
   );
 };
