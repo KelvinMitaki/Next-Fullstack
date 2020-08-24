@@ -4,7 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/index.js"
+    "dev": "nodemon server/index.js --watch server",
+    "build": "next build",
+    "deploy": "now --public",
+    "alias": "now alias",
+    "rm:deploy": "now rm next-fullstack"
   },
   "keywords": [],
   "author": "",
