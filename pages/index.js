@@ -14,7 +14,7 @@ export class index extends Component {
   }
   render() {
     return (
-      <Layout title="Login">
+      <Layout title="Feed">
         {this.props.message ? (
           <h4>{this.props.message}</h4>
         ) : (
