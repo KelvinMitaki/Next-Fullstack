@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server/index.js --watch server",
+    "start": "SET NODE_ENV=production && node server/index.js",
     "build": "next build",
     "deploy": "now --public",
     "alias": "now alias",
