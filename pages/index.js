@@ -5,9 +5,8 @@ import { getMessage } from "../redux/actions";
 
 export class index extends Component {
   static async getInitialProps({ req, store }) {
-    console.log(store);
     if (req) {
-      //   store.dispatch(getMessage());
+      store.dispatch(getMessage());
       return {};
     }
     return {};
