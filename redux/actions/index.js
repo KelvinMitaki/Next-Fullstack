@@ -6,7 +6,7 @@ export const getMessage = () => async dispatch => {
     const res = await Axios.get("/api/test", {
       baseURL: process.env.BASE_URL
     });
-    dispatch({ type: GET_MESSAGE, payload: res.data });
+    dispatch({ type: GET_MESSAGE, payload: res.data.message });
   } catch (error) {
     console.log(error.response);
   }

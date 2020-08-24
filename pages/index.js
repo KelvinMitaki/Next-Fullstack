@@ -12,8 +12,20 @@ export class index extends Component {
     return {};
   }
   render() {
-    return <div>hello next</div>;
+    return (
+      <div>
+        {this.props.message ? (
+          <h4>{this.props.message}</h4>
+        ) : (
+          <h4>hello next</h4>
+        )}
+      </div>
+    );
   }
 }
-
-export default wrapper.withRedux(connect(null)(index));
+const mapStateToProps = state => {
+  return {
+    message: state.eventReducer.message
+  };
+};
+export default wrapper.withRedux(connect(mapStateToProps)(index));
