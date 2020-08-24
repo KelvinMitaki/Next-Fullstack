@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon server/index.js --watch server",
+    "dev": "env-cmd -f ./config/keys.env nodemon server/index.js --watch server",
     "start": "node server/index.js",
     "build": "next build",
     "deploy": "now --public",
@@ -17,6 +17,7 @@
   "dependencies": {
     "axios": "^0.20.0",
     "body-parser": "^1.19.0",
+    "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "mongoose": "^5.10.0",
     "next": "^9.5.2",
