@@ -1,20 +1,20 @@
 import React, { Component } from "react";
-import axios from "axios";
+import { wrapper } from "../redux/reducers";
+import { connect } from "react-redux";
+import { getMessage } from "../redux/actions";
 
 export class index extends Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps({ req, store }) {
+    console.log(store);
     if (req) {
-      const res = await axios.get("/api/test", {
-        baseURL: process.env.BASE_URL
-      });
-
-      return { data: res.data };
+      //   store.dispatch(getMessage());
+      return {};
     }
+    return {};
   }
   render() {
-    console.log(this.props.data);
     return <div>hello next</div>;
   }
 }
 
-export default index;
+export default wrapper.withRedux(connect(null)(index));
