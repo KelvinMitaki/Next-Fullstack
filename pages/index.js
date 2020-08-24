@@ -1,32 +1,123 @@
 import React, { Component } from "react";
-import { wrapper } from "../redux/reducers";
-import { connect } from "react-redux";
-import { getMessage } from "../redux/actions";
+import {
+  Image,
+  List,
+  Segment,
+  Item,
+  Label,
+  Icon,
+  Button
+} from "semantic-ui-react";
+import Link from "next/link";
 import Layout from "../components/Layout";
 
-export class index extends Component {
-  static async getInitialProps({ req, store }) {
-    if (req) {
-      store.dispatch(getMessage());
-      return {};
-    }
-    return {};
-  }
+export class events extends Component {
   render() {
     return (
-      <Layout title="Feed">
-        {this.props.message ? (
-          <h4>{this.props.message}</h4>
-        ) : (
-          <h4>hello next</h4>
-        )}
+      <Layout title="Events">
+        <div className="profile">
+          <Segment.Group>
+            <Segment>
+              <Item.Group>
+                <Item>
+                  <Item.Image size="tiny" circular src="/1.png" />
+                  <Item.Content>
+                    <Item.Header as="a" to={`/events/`}>
+                      {" "}
+                      My title
+                    </Item.Header>
+                    <Item.Description>
+                      Hosted by{" "}
+                      <strong>
+                        <Link href={`/profile/`}>
+                          <a>kevin mitaki</a>
+                        </Link>
+                      </strong>
+                    </Item.Description>
+                    {/* {event.cancelled && ( */}
+                    <Label
+                      style={{ top: "-40px" }}
+                      ribbon="right"
+                      color="red"
+                      content="This event has been cancelled"
+                    />
+                    {/* )} */}
+                  </Item.Content>
+                </Item>
+              </Item.Group>
+            </Segment>
+            <Segment>
+              <span>
+                <Icon name="clock" />
+                {`monday  feb  2020 21:00`} |
+                <Icon name="marker" /> time
+              </span>
+            </Segment>
+            <Segment secondary>
+              <List horizontal>
+                <List.Item>
+                  <Image
+                    as="a"
+                    //   to={`/profile/${attendee.id}`}
+                    size="mini"
+                    circular
+                    src="/1.png"
+                  />
+                </List.Item>
+                <List.Item>
+                  <Image
+                    as="a"
+                    //   to={`/profile/${attendee.id}`}
+                    size="mini"
+                    circular
+                    src="/1.png"
+                  />
+                </List.Item>
+                <List.Item>
+                  <Image
+                    as="a"
+                    //   to={`/profile/${attendee.id}`}
+                    size="mini"
+                    circular
+                    src="/1.png"
+                  />
+                </List.Item>
+              </List>
+            </Segment>
+            <Segment clearing>
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                Laudantium, eos placeat, molestiae laborum assumenda dignissimos
+                provident tempora mollitia iste molestias natus facere eius
+                cumque quas eveniet, repellendus vel quidem qui quaerat neque
+                labore. Perspiciatis laudantium blanditiis hic possimus eaque
+                delectus, beatae dignissimos quo, ducimus minima, voluptates
+                autem velit illo rerum.
+              </p>
+
+              <Button
+                as="a"
+                to={`/events/`}
+                color="teal"
+                floated="right"
+                content="View"
+              />
+            </Segment>
+          </Segment.Group>
+        </div>
+        <style jsx>{`
+          .profile {
+            margin-top: 35vh;
+          }
+          @media screen and (min-width: 760px) {
+            .profile {
+              margin-top: 10vh;
+            }
+          }
+        `}</style>
       </Layout>
     );
   }
 }
-const mapStateToProps = state => {
-  return {
-    message: state.eventReducer.message
-  };
-};
-export default wrapper.withRedux(connect(mapStateToProps)(index));
+
+export default events;

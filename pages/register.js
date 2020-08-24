@@ -6,7 +6,7 @@ export class register extends Component {
   render() {
     return (
       <Layout title="register">
-        <div className="segment">
+        <div className="segment profile">
           <Form>
             <Form.Group widths="equal">
               <Form.Field
@@ -53,6 +53,14 @@ export class register extends Component {
         <style jsx>{`
           .segment {
             margin-top: 25vh;
+          }
+          .profile {
+            margin-top: 35vh;
+          }
+          @media screen and (min-width: 760px) {
+            .profile {
+              margin-top: 10vh;
+            }
           }
         `}</style>
       </Layout>

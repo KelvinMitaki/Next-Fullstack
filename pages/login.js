@@ -7,7 +7,7 @@ export class login extends Component {
   render() {
     return (
       <Layout title="Login">
-        <div className="segment">
+        <div className="segment profile">
           <Segment placeholder>
             <Grid columns={2} relaxed="very" stackable>
               <Grid.Column>
@@ -53,6 +53,14 @@ export class login extends Component {
           }
           .segment {
             margin-top: 30vh;
+          }
+          .profile {
+            margin-top: 35vh;
+          }
+          @media screen and (min-width: 760px) {
+            .profile {
+              margin-top: 10vh;
+            }
           }
         `}</style>
       </Layout>
