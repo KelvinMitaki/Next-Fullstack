@@ -5,7 +5,7 @@ export class index extends Component {
   static async getInitialProps({ req }) {
     if (req) {
       const res = await axios.get("/api/test", {
-        baseURL: `https://next-fullstack.herokuapp.com/${process.env.PORT}`
+        baseURL: `https://next-fullstack.herokuapp.com/`
       });
 
       return { data: res.data };
