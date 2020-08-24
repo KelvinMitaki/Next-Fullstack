@@ -1,5 +1,7 @@
 const express = require("express");
 const next = require("next");
+const bodyParser = require("body-parser");
+
 const eventRoutes = require("./controllers/event");
 
 const dev = process.env.NODE_ENV !== "production";
@@ -10,6 +12,8 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
   const server = express();
 
+  server.use(bodyParser.urlencoded({ extended: true }));
+  server.use(bodyParser.json());
   //ROUTES
   server.use(eventRoutes);
 
