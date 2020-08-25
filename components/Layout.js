@@ -3,6 +3,7 @@ import { Container, Menu, Button } from "semantic-ui-react";
 import Head from "next/head";
 import Router from "next/router";
 import nProgress from "nprogress";
+import SignedInMenu from "./SignedInMenu";
 
 Router.onRouteChangeStart = url => {
   nProgress.start();
@@ -60,6 +61,7 @@ const Layout = ({ children, title }) => {
               onClick={() => Router.push("/register")}
               style={{ marginLeft: "0.5em" }}
             />
+            <SignedInMenu />
           </Menu.Item>
         </Container>
       </Menu>
