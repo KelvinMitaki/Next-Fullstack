@@ -96,7 +96,8 @@ const EventDetailedHeader = ({
           src="/1.png"
           fluid
           style={{
-            filter: "brightness(30%)"
+            filter: "brightness(30%)",
+            height: "40vh"
           }}
         />
 

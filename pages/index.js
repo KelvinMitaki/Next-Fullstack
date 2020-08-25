@@ -9,6 +9,7 @@ import {
   Button
 } from "semantic-ui-react";
 import Link from "next/link";
+import Router from "next/router";
 import Layout from "../components/Layout";
 
 export class events extends Component {
@@ -96,8 +97,7 @@ export class events extends Component {
               </p>
 
               <Button
-                as="a"
-                to={`/events/`}
+                onClick={() => Router.push("/event/123")}
                 color="teal"
                 floated="right"
                 content="View"
