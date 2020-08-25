@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import EventDetailedHeader from "../../components/eventDetailedHeader/EventDetailedHeader";
 import Layout from "../../components/Layout";
 import { Grid } from "semantic-ui-react";
+import EventDetailedInfo from "../../components/eventDetailedInfo/EventDetailedInfo";
 
 export class event extends Component {
   render() {
@@ -11,6 +12,7 @@ export class event extends Component {
           <Grid>
             <Grid.Column width={10}>
               <EventDetailedHeader />
+              <EventDetailedInfo />
             </Grid.Column>
           </Grid>
         </div>
