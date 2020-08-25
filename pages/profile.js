@@ -138,7 +138,7 @@ export class profile extends Component {
           }
           @media screen and (min-width: 760px) {
             .profile {
-              margin-top: 10vh;
+              margin-top: 15vh;
             }
           }
         `}</style>
