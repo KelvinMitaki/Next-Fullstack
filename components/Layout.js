@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Menu, Button } from "semantic-ui-react";
 import Head from "next/head";
+import Router from "next/router";
 
 const Layout = ({ children, title }) => {
   return (
@@ -14,19 +15,27 @@ const Layout = ({ children, title }) => {
             <img src="/assets/logo.png" alt="logo" />
             events
           </Menu.Item> */}
-          <Menu.Item as="a" to="/events" exact="true" name="Events" />
-          <Menu.Item as="a" to="/activity" exact="true" name="Activity" />
+          <Menu.Item
+            as="a"
+            onClick={() => Router.push("/")}
+            exact="true"
+            name="Events"
+          />
+          <Menu.Item
+            as="a"
+            onClick={() => Router.push("/profile")}
+            exact="true"
+            name="Profile"
+          />
           <React.Fragment>
-            <Menu.Item as="a" to="/people" name="People" />
             <Menu.Item>
               <Button
                 as="a"
-                to="/createEvent"
                 floated="right"
                 positive
                 inverted
                 content="Create Event"
-                // onClick={() => createEventNavbar()}
+                onClick={() => Router.push("/new/event")}
               />
             </Menu.Item>
           </React.Fragment>
@@ -36,13 +45,13 @@ const Layout = ({ children, title }) => {
               basic
               inverted
               content="Login"
-              //   onClick={onSIgnInClick}
+              onClick={() => Router.push("/login")}
             />
             <Button
               basic
               inverted
               content="Register"
-              // onClick={onRegisterClick}
+              onClick={() => Router.push("/register")}
               style={{ marginLeft: "0.5em" }}
             />
           </Menu.Item>
