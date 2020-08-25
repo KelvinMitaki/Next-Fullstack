@@ -57,9 +57,9 @@ export class login extends Component {
           .profile {
             margin-top: 35vh;
           }
-          @media screen and (min-width: 760px) {
+          @media screen and (min-width: 768px) {
             .profile {
-              margin-top: 10vh;
+              margin-top: 25vh;
             }
           }
         `}</style>
