@@ -2,7 +2,13 @@ import React from "react";
 import { Container, Menu, Button } from "semantic-ui-react";
 import Head from "next/head";
 import Router from "next/router";
+import nProgress from "nprogress";
 
+Router.onRouteChangeStart = url => {
+  nProgress.start();
+};
+Router.onRouteChangeComplete = () => nProgress.done();
+Router.onRouteChangeError = () => nProgress.done();
 const Layout = ({ children, title }) => {
   return (
     <React.Fragment>
@@ -57,6 +63,7 @@ const Layout = ({ children, title }) => {
           </Menu.Item>
         </Container>
       </Menu>
+
       <Container>{children}</Container>
     </React.Fragment>
   );
