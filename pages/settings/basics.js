@@ -17,7 +17,7 @@ export class basics extends Component {
     return (
       <Layout title="Basics">
         <div className="profile">
-          <Grid>
+          <Grid stackable>
             <Grid.Column width={12}>
               <Segment>
                 <Header dividing size="large" content="Basics" />

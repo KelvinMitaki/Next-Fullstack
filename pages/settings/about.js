@@ -27,7 +27,7 @@ export class about extends Component {
     return (
       <Layout title="About">
         <div className="profile">
-          <Grid>
+          <Grid stackable>
             <Grid.Column width={12}>
               <Segment>
                 <Header dividing size="large" content="About Me" />
