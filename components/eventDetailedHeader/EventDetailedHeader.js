@@ -129,9 +129,16 @@ const EventDetailedHeader = ({
           <Button>Cancel My Place</Button>
         </React.Fragment>
         <Button color="orange" floated="right">
-          Manage Event
+          <Link href="/new/event">
+            <a>Manage Event</a>
+          </Link>
         </Button>
       </Segment>
+      <style jsx>{`
+        a {
+          color: whitesmoke;
+        }
+      `}</style>
     </Segment.Group>
   );
 };
