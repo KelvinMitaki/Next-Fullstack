@@ -1,26 +1,27 @@
 import React from "react";
 import Link from "next/link";
+import { Menu, Header } from "semantic-ui-react";
 
 const SettingsNav = () => {
   return (
     <React.Fragment>
       <Menu vertical>
         <Header icon="user" attached inverted color="grey" content="Profile" />
-        <Link href="/settings/basics">
-          <Menu.Item as="a">
+        <Menu.Item>
+          <Link href="/settings/basics">
             <a>Basics</a>
-          </Menu.Item>
-        </Link>
-        <Link href="/settings/about">
-          <Menu.Item as="a">
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/settings/about">
             <a>About Me</a>
-          </Menu.Item>
-        </Link>
-        <Link href="/settings/photos">
-          <Menu.Item as="a">
+          </Link>
+        </Menu.Item>
+        <Menu.Item>
+          <Link href="/settings/photos">
             <a>My Photos</a>
-          </Menu.Item>
-        </Link>
+          </Link>
+        </Menu.Item>
       </Menu>
 
       <Menu vertical>
@@ -31,11 +32,11 @@ const SettingsNav = () => {
           color="grey"
           content="Account"
         />
-        <Link href="/settings/account">
-          <Menu.Item as="a">
+        <Menu.Item>
+          <Link href="/profile">
             <a>My Account</a>
-          </Menu.Item>
-        </Link>
+          </Link>
+        </Menu.Item>
       </Menu>
     </React.Fragment>
   );

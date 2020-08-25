@@ -12,6 +12,7 @@ import { toastr } from "react-redux-toastr";
 import DropzoneInput from "../../components/dropzone/DropzoneInput";
 import Layout from "../../components/Layout";
 import CropperInput from "../../components/cropper/CropperInput";
+import SettingsNav from "../../components/SettingsNav";
 
 const PhotosPage = ({
   loading,
@@ -55,91 +56,102 @@ const PhotosPage = ({
   return (
     <Layout title="Photos">
       <div className="profile">
-        <Segment stacked>
-          <Header dividing size="large" content="Your Photos" />
-          <Grid stackable>
-            <Grid.Row />
-            <Grid.Column width={4}>
-              <Header color="teal" sub content="Step 1 - Add Photo" />
-              <DropzoneInput setFiles={setFiles} />
-            </Grid.Column>
-            <Grid.Column width={1} />
-            <Grid.Column width={4}>
-              <Header sub color="teal" content="Step 2 - Resize image" />
-              {files.length > 0 && (
-                <CropperInput
-                  setImage={setImage}
-                  imagePreview={files[0].preview}
-                />
-              )}
-            </Grid.Column>
-            <Grid.Column width={1} />
-            <Grid.Column width={4}>
-              <Header sub color="teal" content="Step 3 - Preview & Upload" />
-
-              {files.length > 0 && (
-                <React.Fragment>
-                  <div
-                    className="img-preview"
-                    style={{
-                      minHeight: "200px",
-                      minWidth: "200px",
-                      overflow: "hidden"
-                    }}
+        <Grid stackable>
+          <Grid.Column width={12}>
+            <Segment stacked>
+              <Header dividing size="large" content="Your Photos" />
+              <Grid stackable>
+                <Grid.Row />
+                <Grid.Column width={4}>
+                  <Header color="teal" sub content="Step 1 - Add Photo" />
+                  <DropzoneInput setFiles={setFiles} />
+                </Grid.Column>
+                <Grid.Column width={1} />
+                <Grid.Column width={4}>
+                  <Header sub color="teal" content="Step 2 - Resize image" />
+                  {files.length > 0 && (
+                    <CropperInput
+                      setImage={setImage}
+                      imagePreview={files[0].preview}
+                    />
+                  )}
+                </Grid.Column>
+                <Grid.Column width={1} />
+                <Grid.Column width={4}>
+                  <Header
+                    sub
+                    color="teal"
+                    content="Step 3 - Preview & Upload"
                   />
-                  <Button.Group>
-                    <Button
-                      loading={loading}
-                      //   onClick={handleUploadImage}
-                      style={{ width: "100px" }}
-                      positive
-                      icon="check"
-                    />
-                    <Button
-                      onClick={handleCancelCrop}
-                      style={{ width: "100px" }}
-                      positive
-                      icon="close"
-                    />
-                  </Button.Group>
-                </React.Fragment>
-              )}
-            </Grid.Column>
-          </Grid>
 
-          <Divider />
-          <Header sub color="teal" content="All Photos" />
-
-          <Card.Group itemsPerRow={5}>
-            <Card>
-              <Image src="/1.png" style={{ minHeight: "80%" }} />
-              <Button positive>Main Photo</Button>
-            </Card>
-            {photos &&
-              photos
-                .filter(photo => photo.url !== profile.photoURL)
-                .map(photo => (
-                  <Card key={photo.id}>
-                    <Image src={photo.url} style={{ minHeight: "80%" }} />
-                    <div className="ui two buttons">
-                      <Button
-                        onClick={() => handleUpdateProfilePhoto(photo)}
-                        basic
-                        color="green"
-                      >
-                        Main
-                      </Button>
-                      <Button
-                        onClick={() => handleDeletePhoto(photo)}
-                        basic
-                        icon="trash"
-                        color="red"
+                  {files.length > 0 && (
+                    <React.Fragment>
+                      <div
+                        className="img-preview"
+                        style={{
+                          minHeight: "200px",
+                          minWidth: "200px",
+                          overflow: "hidden"
+                        }}
                       />
-                    </div>
-                  </Card>
-                ))}
-          </Card.Group>
-        </Segment>
+                      <Button.Group>
+                        <Button
+                          loading={loading}
+                          //   onClick={handleUploadImage}
+                          style={{ width: "100px" }}
+                          positive
+                          icon="check"
+                        />
+                        <Button
+                          onClick={handleCancelCrop}
+                          style={{ width: "100px" }}
+                          positive
+                          icon="close"
+                        />
+                      </Button.Group>
+                    </React.Fragment>
+                  )}
+                </Grid.Column>
+              </Grid>
+
+              <Divider />
+              <Header sub color="teal" content="All Photos" />
+
+              <Card.Group itemsPerRow={5}>
+                <Card>
+                  <Image src="/1.png" style={{ minHeight: "80%" }} />
+                  <Button positive>Main Photo</Button>
+                </Card>
+                {photos &&
+                  photos
+                    .filter(photo => photo.url !== profile.photoURL)
+                    .map(photo => (
+                      <Card key={photo.id}>
+                        <Image src={photo.url} style={{ minHeight: "80%" }} />
+                        <div className="ui two buttons">
+                          <Button
+                            onClick={() => handleUpdateProfilePhoto(photo)}
+                            basic
+                            color="green"
+                          >
+                            Main
+                          </Button>
+                          <Button
+                            onClick={() => handleDeletePhoto(photo)}
+                            basic
+                            icon="trash"
+                            color="red"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+              </Card.Group>
+            </Segment>
+          </Grid.Column>
+          <Grid.Column width={4}>
+            <SettingsNav />
+          </Grid.Column>
+        </Grid>
       </div>
       <style jsx>{`
         .profile {
