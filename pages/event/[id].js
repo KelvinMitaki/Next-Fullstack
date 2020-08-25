@@ -4,6 +4,7 @@ import Layout from "../../components/Layout";
 import { Grid } from "semantic-ui-react";
 import EventDetailedInfo from "../../components/eventDetailedInfo/EventDetailedInfo";
 import EventDetailedChat from "../../components/eventDetailedChat/eventDetailedChat";
+import EventDetailedSidebar from "../../components/eventDetailedSideBar/EventDetailedSideBar";
 
 export class event extends Component {
   render() {
@@ -15,6 +16,9 @@ export class event extends Component {
               <EventDetailedHeader />
               <EventDetailedInfo />
               <EventDetailedChat />
+            </Grid.Column>
+            <Grid.Column width={6}>
+              <EventDetailedSidebar />
             </Grid.Column>
           </Grid>
         </div>
