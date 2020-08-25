@@ -125,18 +125,27 @@ const EventDetailedHeader = ({
         </Segment>
       </Segment>
       <Segment attached="bottom" clearing>
-        <React.Fragment>
-          <Button>Cancel My Place</Button>
-        </React.Fragment>
-        <Button color="orange" floated="right">
-          <Link href="/new/event">
-            <a>Manage Event</a>
-          </Link>
-        </Button>
+        <div className="test">
+          <React.Fragment>
+            <Button>Cancel My Place</Button>
+          </React.Fragment>
+          <Button color="orange" floated="right">
+            <Link href="/new/event">
+              <a>Manage Event</a>
+            </Link>
+          </Button>
+        </div>
       </Segment>
       <style jsx>{`
         a {
           color: whitesmoke;
+        }
+        @media screen and (max-width: 385px) {
+          .test {
+            display: flex;
+            align-items: center;
+            align-content: center;
+          }
         }
       `}</style>
     </Segment.Group>

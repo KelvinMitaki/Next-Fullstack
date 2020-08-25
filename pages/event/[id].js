@@ -11,7 +11,7 @@ export class event extends Component {
     return (
       <Layout title="Event">
         <div className="profile">
-          <Grid>
+          <Grid stackable>
             <Grid.Column width={10}>
               <EventDetailedHeader />
               <EventDetailedInfo />
