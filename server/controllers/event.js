@@ -134,4 +134,25 @@ router.get("/api/all/user/events", auth, async (req, res) => {
   }
 });
 // sign up to an event
+router.get(
+  "/api/join/event",
+  auth,
+  check("eventId").not().isEmpty().withMessage("event id must not be empty"),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(401).send({ message: errors.array()[0].msg });
+      }
+      const { eventId } = req.body;
+      const { _id } = req.session.user;
+      const user = await User.findById(_id);
+      user.events = [eventId, ...user.events];
+      await user.save();
+      res.send(user);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
 module.exports = router;
