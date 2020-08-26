@@ -20,7 +20,13 @@ const userSchema = new mongoose.Schema(
       required: true
     },
     events: {
-      type: [String]
+      type: [mongoose.Types.ObjectId]
+    },
+    following: {
+      type: [mongoose.Types.ObjectId]
+    },
+    followers: {
+      type: [mongoose.Types.ObjectId]
     }
   },
   { timestamps: true }
