@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const eventRoutes = require("./controllers/event");
+const authRoutes = require("./controllers/auth");
 
 const dev = process.env.NODE_ENV !== "production";
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,7 @@ app.prepare().then(() => {
   server.use(bodyParser.json());
   //ROUTES
   server.use(eventRoutes);
+  server.use(authRoutes);
 
   server.all("*", (req, res) => handle(req, res));
   server.listen(PORT, err =>
