@@ -3,11 +3,13 @@ import { combineReducers, createStore, applyMiddleware } from "redux";
 import thunk from "redux-thunk";
 import { composeWithDevTools } from "redux-devtools-extension";
 import { createWrapper, HYDRATE } from "next-redux-wrapper";
+import { reducer as formReducer } from "redux-form";
 import authReducer from "./authReducer";
 
 const combinedReducer = combineReducers({
   event: eventReducer,
-  auth: authReducer
+  auth: authReducer,
+  form: formReducer
 });
 
 const reducer = (state, action) => {

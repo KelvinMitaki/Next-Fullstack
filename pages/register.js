@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import { Form, Input, Button, Segment } from "semantic-ui-react";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../components/reduxForm/TextInput";
+import validator from "validator";
 
 export class register extends Component {
   render() {
@@ -69,5 +70,36 @@ export class register extends Component {
     );
   }
 }
+const validate = formValues => {
+  const errors = {};
+  if (
+    !formValues.firstName ||
+    (formValues.firstName && formValues.firstName.trim() === "")
+  ) {
+    errors.firstName = "Please enter your first name";
+  }
+  if (
+    !formValues.lastName ||
+    (formValues.lastName && formValues.lastName.trim() === "")
+  ) {
+    errors.lastName = "Please enter your last name";
+  }
+  if (
+    !formValues.email ||
+    (formValues.email && !validator.isEmail(formValues.email))
+  ) {
+    errors.email = "Please enter a valid email";
+  }
+  if (
+    !formValues.password ||
+    (formValues.password && formValues.password.trim().length < 6)
+  ) {
+    errors.password = "Password must be at least six characters";
+  }
+  if (formValues.password !== formValues.confirmPassword) {
+    errors.password = "Passwords do not match";
+  }
 
-export default reduxForm({ form: "register" })(register);
+  return errors;
+};
+export default reduxForm({ form: "register", validate })(register);
