@@ -2,6 +2,7 @@ const router = require("express").Router();
 const auth = require("../middlewares/auth");
 const { check, validationResult } = require("express-validator");
 const Event = require("../models/event");
+const User = require("../models/user");
 
 router.get("/api/test", (req, res) => {
   res.send({ message: "Hello World" });
@@ -121,4 +122,16 @@ router.post(
     }
   }
 );
+
+router.get("/api/all/user/events", auth, async (req, res) => {
+  try {
+    const { _id } = req.session.user;
+    const eventIds = await User.findById(_id).select({ events: 1, _id: 0 });
+    const events = await Event.find({ _id: { $in: eventIds } });
+    res.send(events);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+// sign up to an event
 module.exports = router;
