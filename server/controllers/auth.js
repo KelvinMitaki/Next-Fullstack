@@ -5,30 +5,38 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/user");
 
 router.get("/api/current_user", async (req, res) => {
-  if (!req.session.user) {
-    return res.status(404).send({});
-  }
-  const user = await User.findById(req.session.user._id);
-  if (user) {
-    req.session.user = user;
-    const isLoggedIn = req.session.isLoggedIn;
-    return res.send({ user, isLoggedIn });
+  try {
+    if (!req.session.user) {
+      return res.status(404).send({});
+    }
+    const user = await User.findById(req.session.user._id);
+    if (user) {
+      req.session.user = user;
+      const isLoggedIn = req.session.isLoggedIn;
+      return res.send({ user, isLoggedIn });
+    }
+  } catch (error) {
+    res.status(500).send(error);
   }
 });
 
 router.post(
   "/api/register",
   check("firstName")
+    .trim()
     .isLength({ min: 2 })
     .withMessage("first name must be two characters or more"),
   check("lastName")
+    .trim()
     .isLength({ min: 2 })
     .withMessage("last name must be two characters or more"),
-  check("email").isEmail().withMessage("email must be valid"),
+  check("email").trim().isEmail().withMessage("email must be valid"),
   check("password")
+    .trim()
     .isLength({ min: 6 })
     .withMessage("password must be 6 characters min"),
   check("confirmPassword")
+    .trim()
     .isLength({ min: 6 })
     .withMessage("confirm password must be 6 characters min"),
   async (req, res) => {
@@ -71,8 +79,9 @@ router.post(
 
 router.post(
   "/api/login",
-  check("email").isEmail().withMessage("Please enter a valid email"),
+  check("email").trim().isEmail().withMessage("Please enter a valid email"),
   check("password")
+    .trim()
     .isLength({ min: 6 })
     .withMessage("password must be 6 characters min"),
   async (req, res) => {
