@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import Layout from "../components/Layout";
-import { Form, Input, Button, Segment } from "semantic-ui-react";
+import { Form, Button, Segment } from "semantic-ui-react";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../components/reduxForm/TextInput";
 import validator from "validator";
+import { connect } from "react-redux";
+import { getMessage, registerUser } from "../redux/actions";
 
 export class register extends Component {
   render() {
@@ -11,7 +13,11 @@ export class register extends Component {
       <Layout title="register">
         <div className="segment profile">
           <Segment>
-            <Form>
+            <Form
+              onSubmit={this.props.handleSubmit(formValues =>
+                this.props.registerUser(formValues)
+              )}
+            >
               <Form.Group widths="equal">
                 <Field
                   name="firstName"
@@ -39,7 +45,7 @@ export class register extends Component {
                 name="password"
                 component={TextInput}
                 label="Password"
-                id="email"
+                id="password"
                 type="password"
               />
               <Field
@@ -49,7 +55,14 @@ export class register extends Component {
                 id="confirmPassword"
                 type="password"
               />
-              <Button fluid content="Register" primary />
+              <Button
+                fluid
+                content="Register"
+                primary
+                disabled={this.props.invalid || this.props.registerLoading}
+                loading={this.props.registerLoading}
+              />
+              <h5 style={{ color: "red" }}>{this.props.registerError}</h5>
             </Form>
           </Segment>
         </div>
@@ -97,9 +110,18 @@ const validate = formValues => {
     errors.password = "Password must be at least six characters";
   }
   if (formValues.password !== formValues.confirmPassword) {
-    errors.password = "Passwords do not match";
+    errors.confirmPassword = "Passwords do not match";
   }
 
   return errors;
 };
-export default reduxForm({ form: "register", validate })(register);
+
+const mapStateToProps = state => {
+  return {
+    registerLoading: state.auth.registerLoading,
+    registerError: state.auth.registerError
+  };
+};
+export default reduxForm({ form: "register", validate })(
+  connect(mapStateToProps, { registerUser })(register)
+);

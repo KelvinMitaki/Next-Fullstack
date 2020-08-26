@@ -56,7 +56,7 @@ router.post(
       if (password !== confirmPassword) {
         return res.status(401).send({ message: "Passwords do not match" });
       }
-      const userExists = User.findOne({ email });
+      const userExists = await User.findOne({ email });
       if (userExists) {
         return res
           .status(401)

@@ -1,5 +1,12 @@
-import { GET_MESSAGE, CURRENT_USER } from "./types";
+import {
+  GET_MESSAGE,
+  CURRENT_USER,
+  REGISTER_START,
+  REGISTER_STOP,
+  REGISTER_ERROR
+} from "./types";
 import Axios from "axios";
+import Router from "next/router";
 
 const baseURL = process.env.BASE_URL;
 
@@ -24,10 +31,16 @@ export const currentUser = () => async dispatch => {
   }
 };
 
-export const register = formValues => async dispatch => {
+export const registerUser = formValues => async dispatch => {
   try {
-    console.log(formValues);
+    dispatch({ type: REGISTER_START });
+    const res = await Axios.post("/api/register", formValues, { baseURL });
+    dispatch({ type: REGISTER_STOP });
+    Router.push("/login");
+    console.log(res.data);
   } catch (error) {
     console.log(error.response);
+    dispatch({ type: REGISTER_STOP });
+    dispatch({ type: REGISTER_ERROR, payload: error.response.data.message });
   }
 };
