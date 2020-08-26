@@ -97,7 +97,7 @@ export class events extends Component {
               </p>
 
               <Button
-                onClick={() => Router.push("/event/123")}
+                onClick={() => Router.push("/event/[id]", "/event/123")}
                 color="teal"
                 floated="right"
                 content="View"
