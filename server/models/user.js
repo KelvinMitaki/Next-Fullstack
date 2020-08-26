@@ -19,6 +19,30 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true
     },
+    gender: {
+      type: String
+    },
+    birthDate: {
+      type: Date
+    },
+    homeTown: {
+      type: String
+    },
+    status: {
+      type: String
+    },
+    aboutMe: {
+      type: String
+    },
+    hobbies: {
+      type: [String]
+    },
+    occupation: {
+      type: String
+    },
+    originCountry: {
+      type: String
+    },
     events: {
       type: [mongoose.Types.ObjectId]
     },
@@ -27,6 +51,15 @@ const userSchema = new mongoose.Schema(
     },
     followers: {
       type: [mongoose.Types.ObjectId]
+    },
+    photos: {
+      type: [String]
+    },
+    age: {
+      type: Number
+    },
+    interests: {
+      type: [String]
     }
   },
   { timestamps: true }

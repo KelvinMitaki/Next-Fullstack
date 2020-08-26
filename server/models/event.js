@@ -26,6 +26,10 @@ const eventSchema = new mongoose.Schema(
     venue: {
       type: String,
       required: true
+    },
+    eventDate: {
+      type: Date,
+      required: true
     }
   },
   { timestamps: true }
