@@ -3,7 +3,6 @@ import Layout from "../../components/Layout";
 import RadioInput from "../../components/RadioInput";
 import TextArea from "../../components/TextArea";
 import SelectInput from "../../components/SelectInput";
-import TextInput from "../../components/TextInput";
 import {
   Segment,
   Header,
@@ -13,6 +12,7 @@ import {
   Grid
 } from "semantic-ui-react";
 import SettingsNav from "../../components/SettingsNav";
+import TextInput from "../../components/reduxForm/TextInput";
 
 const interests = [
   { key: "drinks", text: "Drinks", value: "drinks" },

@@ -1,11 +1,24 @@
+import App from "next/app";
 import React from "react";
 import { wrapper } from "../redux/reducers";
 import "semantic-ui-css/semantic.min.css";
 import "../components/index.css";
 import "cropperjs/dist/cropper.css";
-const _app = ({ Component, pageProps }) => {
-  console.log("reached");
-  return <Component {...pageProps} />;
-};
+import { currentUser } from "../redux/actions";
+
+export class _app extends App {
+  static async getInitialProps(ctx) {
+    const appProps = await App.getInitialProps(ctx);
+    const { store } = ctx.ctx;
+    if (store) {
+      store.dispatch(currentUser());
+    }
+    return { ...appProps };
+  }
+  render() {
+    const { Component, pageProps } = this.props;
+    return <Component {...pageProps} />;
+  }
+}
 
 export default wrapper.withRedux(_app);

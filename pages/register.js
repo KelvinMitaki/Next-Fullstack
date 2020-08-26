@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import Layout from "../components/Layout";
 import { Form, Input, Button, Segment } from "semantic-ui-react";
+import { reduxForm, Field } from "redux-form";
+import TextInput from "../components/reduxForm/TextInput";
 
 export class register extends Component {
   render() {
@@ -10,45 +12,43 @@ export class register extends Component {
           <Segment>
             <Form>
               <Form.Group widths="equal">
-                <Form.Field
-                  id="form-input-control-first-name"
-                  control={Input}
-                  label="First name"
-                  placeholder="First name"
+                <Field
+                  name="firstName"
+                  component={TextInput}
+                  label="First Name"
+                  id="firstName"
+                  type="text"
                 />
-                <Form.Field
-                  id="form-input-control-last-name"
-                  control={Input}
-                  label="Last name"
-                  placeholder="Last name"
+                <Field
+                  name="lastName"
+                  component={TextInput}
+                  label="Last Name"
+                  id="lastName"
+                  type="text"
                 />
               </Form.Group>
-              <Form.Field
-                id="form-input-control-error-email"
-                control={Input}
+              <Field
+                name="email"
+                component={TextInput}
                 label="Email"
-                placeholder="joe@schmoe.com"
-                error={{
-                  content: "Please enter a valid email address",
-                  pointing: "below"
-                }}
+                id="email"
+                type="text"
               />
-              <Form.Field
-                control={Input}
+              <Field
+                name="password"
+                component={TextInput}
                 label="Password"
-                placeholder="Password"
+                id="email"
+                type="password"
               />
-              <Form.Field
-                control={Input}
+              <Field
+                name="confirmPassword"
+                component={TextInput}
                 label="Confirm Password"
-                placeholder="Confirm Your Password"
+                id="confirmPassword"
+                type="password"
               />
-              <Form.Field
-                id="form-button-control-public"
-                control={Button}
-                content="Confirm"
-                label="Label with htmlFor"
-              />
+              <Button fluid content="Register" primary />
             </Form>
           </Segment>
         </div>
@@ -70,4 +70,4 @@ export class register extends Component {
   }
 }
 
-export default register;
+export default reduxForm({ form: "register" })(register);

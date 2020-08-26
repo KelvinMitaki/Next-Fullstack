@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import TextInput from "../../components/TextInput";
 import RadioInput from "../../components/RadioInput";
 import {
   Button,
@@ -11,6 +10,7 @@ import {
 } from "semantic-ui-react";
 import Layout from "../../components/Layout";
 import SettingsNav from "../../components/SettingsNav";
+import TextInput from "../../components/reduxForm/TextInput";
 
 export class basics extends Component {
   render() {
