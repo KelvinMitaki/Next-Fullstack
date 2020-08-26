@@ -136,4 +136,28 @@ router.post(
     }
   }
 );
+
+router.post(
+  "/api/follow/user",
+  auth,
+  check("_id").not().isEmpty().withMessage("id must not be empty"),
+  async (req, res) => {
+    try {
+      const userId = req.session.user._id;
+      const { _id } = req.body;
+      if (userId.toString() === _id.toString()) {
+        return res.status(401).send({ message: "You cannot follow yourself" });
+      }
+      const userToBeFollowed = await User.findById(_id);
+      userToBeFollowed.followers = [userId, ...userToBeFollowed.followers];
+      await userToBeFollowed.save();
+      const follower = await User.findById(userId);
+      follower.following = [userToBeFollowed._id, ...follower.following];
+      await follower.save();
+      res.send(userToBeFollowed);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
 module.exports = router;
