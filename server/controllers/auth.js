@@ -49,4 +49,29 @@ router.post(
   }
 );
 
+router.post(
+  "/api/login",
+  check("email").isEmail().withMessage("Please enter a valid email"),
+  check("password")
+    .isLength({ min: 6 })
+    .withMessage("password must be 6 characters min"),
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(401).send({ message: errors.array()[0].msg });
+      }
+
+      const { email, password } = req.body;
+      const user = User.findOne({ email, password });
+      if (!user) {
+        return res.status(401).send({ message: "Invalid email or password" });
+      }
+      res.send(user);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  }
+);
+
 module.exports = router;
