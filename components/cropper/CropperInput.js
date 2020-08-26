@@ -4,7 +4,6 @@ export class CropperInput extends Component {
   cropper = createRef();
   cropImage = () => {
     const { setImage } = this.props;
-    console.log(this.cropper.current);
     // if (typeof this.cropper.current.getCroppedCanvas() === "undefined") {
     //   return;
     // }
