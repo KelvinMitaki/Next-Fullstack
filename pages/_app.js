@@ -4,6 +4,7 @@ import "semantic-ui-css/semantic.min.css";
 import "../components/index.css";
 import "cropperjs/dist/cropper.css";
 const _app = ({ Component, pageProps }) => {
+  console.log("reached");
   return <Component {...pageProps} />;
 };
 
