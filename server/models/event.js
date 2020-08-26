@@ -2,7 +2,11 @@ const mongoose = require("mongoose");
 
 const eventSchema = new mongoose.Schema(
   {
-    title: {
+    name: {
+      type: String,
+      required: true
+    },
+    about: {
       type: String,
       required: true
     },
@@ -13,6 +17,14 @@ const eventSchema = new mongoose.Schema(
     host: {
       type: mongoose.Types.ObjectId,
       ref: "User",
+      required: true
+    },
+    city: {
+      type: String,
+      required: true
+    },
+    venue: {
+      type: String,
       required: true
     }
   },
