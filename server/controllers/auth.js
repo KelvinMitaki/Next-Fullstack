@@ -1,7 +1,20 @@
 const { check, validationResult } = require("express-validator");
+const router = require("express").Router();
+const bcrypt = require("bcryptjs");
+
 const User = require("../models/user");
 
-const router = require("express").Router();
+router.get("/api/current_user", async (req, res) => {
+  if (!req.session.user) {
+    return res.status(404).send({});
+  }
+  const user = await User.findById(req.session.user._id);
+  if (user) {
+    req.session.user = user;
+    const isLoggedIn = req.session.isLoggedIn;
+    return res.send({ user, isLoggedIn });
+  }
+});
 
 router.post(
   "/api/register",
@@ -34,12 +47,19 @@ router.post(
       if (password !== confirmPassword) {
         return res.status(401).send({ message: "Passwords do not match" });
       }
+      const userExists = User.findOne({ email });
+      if (userExists) {
+        return res
+          .status(401)
+          .send({ message: "A user with that email already exists" });
+      }
+      const hashedPassword = await bcrypt.hash(password, 12);
       //  SEND EMAIL CONFIRM WITH SENDGRID
       const user = new User({
         firstName,
         lastName,
-        email,
-        password
+        email: email.toLowerCase(),
+        password: hashedPassword
       });
       await user.save();
       res.send(user);
@@ -63,10 +83,16 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const user = User.findOne({ email, password });
+      const user = User.findOne({ email: email.toLowerCase() });
       if (!user) {
         return res.status(401).send({ message: "Invalid email or password" });
       }
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.status(401).send({ message: "passwords do not match" });
+      }
+      req.session.user = user;
+      req.session.isLoggedIn = true;
       res.send(user);
     } catch (error) {
       res.status(500).send(error);
