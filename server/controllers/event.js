@@ -7,6 +7,15 @@ router.get("/api/test", (req, res) => {
   res.send({ message: "Hello World" });
 });
 
+router.get("/api/all/events", async (req, res) => {
+  try {
+    const events = await Event.find({});
+    res.send(events);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
 router.post(
   "/api/new/event",
   auth,
