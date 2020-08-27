@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import Layout from "../components/Layout";
 import { Segment, Grid, Form, Button, Divider } from "semantic-ui-react";
 import router from "next/router";
+import { reduxForm, Field } from "redux-form";
+import validator from "validator";
+import TextInput from "../components/reduxForm/TextInput";
+import { connect } from "react-redux";
+import { loginUser } from "../redux/actions";
 
 export class login extends Component {
   render() {
@@ -11,23 +16,38 @@ export class login extends Component {
           <Segment placeholder>
             <Grid columns={2} relaxed="very" stackable>
               <Grid.Column>
-                <Form>
-                  <Form.Input
-                    icon="user"
-                    iconPosition="left"
-                    label="Username"
-                    placeholder="Username"
+                <Form
+                  onSubmit={this.props.handleSubmit(formValues =>
+                    this.props.loginUser(formValues)
+                  )}
+                >
+                  <Field
+                    type="text"
+                    name="email"
+                    label="Email"
+                    placeholder="Your Email"
+                    component={TextInput}
                   />
-                  <Form.Input
-                    icon="lock"
-                    iconPosition="left"
-                    label="Password"
+                  <Field
                     type="password"
+                    name="password"
+                    label="Password"
                     placeholder="Your Password"
+                    component={TextInput}
                   />
 
-                  <Button content="Login" primary />
+                  <Button
+                    content="Login"
+                    primary
+                    fluid
+                    disabled={this.props.invalid || this.props.loading}
+                    loading={this.props.loading}
+                  />
                 </Form>
+
+                <h5 style={{ color: "red", textAlign: "center" }}>
+                  {this.props.loginError}
+                </h5>
               </Grid.Column>
 
               <Grid.Column verticalAlign="middle">
@@ -67,5 +87,28 @@ export class login extends Component {
     );
   }
 }
-
-export default login;
+const validate = formValues => {
+  const errors = {};
+  if (
+    !formValues.email ||
+    (formValues.email && !validator.isEmail(formValues.email))
+  ) {
+    errors.email = "Please enter a valid email";
+  }
+  if (
+    !formValues.password ||
+    (formValues.password && formValues.password.trim().length < 6)
+  ) {
+    errors.password = "Password must be six characters minimum";
+  }
+  return errors;
+};
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    loginError: state.auth.loginError
+  };
+};
+export default reduxForm({ form: "login", validate })(
+  connect(mapStateToProps, { loginUser })(login)
+);

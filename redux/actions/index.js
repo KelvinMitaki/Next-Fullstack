@@ -5,7 +5,8 @@ import {
   REGISTER_STOP,
   REGISTER_ERROR,
   LOADING_START,
-  LOADING_STOP
+  LOADING_STOP,
+  LOGIN_ERROR
 } from "./types";
 import Axios from "axios";
 import Router from "next/router";
@@ -37,8 +38,8 @@ export const registerUser = formValues => async dispatch => {
   try {
     dispatch({ type: REGISTER_START });
     await Axios.post("/api/register", formValues, { baseURL });
-    dispatch({ type: REGISTER_STOP });
     Router.push("/login");
+    dispatch({ type: REGISTER_STOP });
   } catch (error) {
     console.log(error.response);
     dispatch({ type: REGISTER_STOP });
@@ -50,9 +51,11 @@ export const loginUser = formValues => async dispatch => {
   try {
     dispatch({ type: LOADING_START });
     await Axios.post("/api/login", formValues, { baseURL });
+    Router.push("/");
     dispatch({ type: LOADING_STOP });
   } catch (error) {
     console.log(error.response);
     dispatch({ type: LOADING_STOP });
+    dispatch({ type: LOGIN_ERROR, payload: error.response.data.message });
   }
 };

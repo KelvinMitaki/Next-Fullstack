@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import Layout from "../components/Layout";
-import { Form, Button, Segment } from "semantic-ui-react";
+import { Form, Button, Segment, Message, Icon } from "semantic-ui-react";
 import { reduxForm, Field } from "redux-form";
 import TextInput from "../components/reduxForm/TextInput";
 import validator from "validator";
 import { connect } from "react-redux";
 import { getMessage, registerUser } from "../redux/actions";
+import Link from "next/link";
 
 export class register extends Component {
   render() {
@@ -64,6 +65,14 @@ export class register extends Component {
               />
               <h5 style={{ color: "red" }}>{this.props.registerError}</h5>
             </Form>
+            <Message attached="bottom" warning>
+              <Icon name="help" />
+              Already signed up?&nbsp;
+              <Link href="/login">
+                <a>Login here</a>
+              </Link>
+              &nbsp;instead.
+            </Message>
           </Segment>
         </div>
         <style jsx>{`

@@ -93,7 +93,7 @@ router.post(
       }
 
       const { email, password } = req.body;
-      const user = User.findOne({ email: email.toLowerCase() });
+      const user = await User.findOne({ email: email.toLowerCase() });
       if (!user) {
         return res.status(401).send({ message: "Invalid email or password" });
       }
