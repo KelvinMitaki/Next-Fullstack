@@ -10,6 +10,7 @@ import {
 } from "./types";
 import Axios from "axios";
 import Router from "next/router";
+import fetch from "isomorphic-unfetch";
 
 const baseURL = process.env.BASE_URL;
 
@@ -26,14 +27,18 @@ export const getMessage = () => async dispatch => {
 
 export const currentUser = cookie => async dispatch => {
   try {
-    const res = await Axios.get("/api/current_user", {
-      baseURL,
-      headers: { cookie }
-    });
-    // console.log(res.data);
-    dispatch({ type: CURRENT_USER, payload: res.data });
+    const res = await fetch(
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/api/current_user"
+        : "https://next-fullstack.herokuapp.com/api/current_user",
+      {
+        headers: { cookie }
+      }
+    );
+    const data = await res.json();
+    dispatch({ type: CURRENT_USER, payload: data });
   } catch (error) {
-    console.log(error.response.data);
+    console.log(error);
   }
 };
 

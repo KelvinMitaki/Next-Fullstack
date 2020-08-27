@@ -18,6 +18,7 @@ const reducer = (state, action) => {
       ...state,
       ...action.payload
     };
+    if (nextState.form) nextState.form = state.form;
     return nextState;
   }
   return combinedReducer(state, action);

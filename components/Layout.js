@@ -4,6 +4,7 @@ import Head from "next/head";
 import Router from "next/router";
 import nProgress from "nprogress";
 import SignedInMenu from "./SignedInMenu";
+import { connect } from "react-redux";
 
 Router.onRouteChangeStart = () => {
   nProgress.start();
@@ -11,7 +12,7 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => nProgress.done();
 Router.onRouteChangeError = () => nProgress.done();
 const Layout = ({ children, title, user }) => {
-  // console.log(user);
+  console.log(user);
   return (
     <React.Fragment>
       <Head>
@@ -49,20 +50,25 @@ const Layout = ({ children, title, user }) => {
           </React.Fragment>
 
           <Menu.Item position="right">
-            <Button
-              basic
-              inverted
-              content="Login"
-              onClick={() => Router.push("/login")}
-            />
-            <Button
-              basic
-              inverted
-              content="Register"
-              onClick={() => Router.push("/register")}
-              style={{ marginLeft: "0.5em" }}
-            />
-            <SignedInMenu />
+            {user && user.isLoggedIn ? (
+              <SignedInMenu user={user} />
+            ) : (
+              <React.Fragment>
+                <Button
+                  basic
+                  inverted
+                  content="Login"
+                  onClick={() => Router.push("/login")}
+                />
+                <Button
+                  basic
+                  inverted
+                  content="Register"
+                  onClick={() => Router.push("/register")}
+                  style={{ marginLeft: "0.5em" }}
+                />
+              </React.Fragment>
+            )}
           </Menu.Item>
         </Container>
       </Menu>
@@ -71,5 +77,9 @@ const Layout = ({ children, title, user }) => {
     </React.Fragment>
   );
 };
-
-export default Layout;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps)(Layout);

@@ -8,7 +8,7 @@ const auth = require("../middlewares/auth");
 router.get("/api/current_user", async (req, res) => {
   try {
     if (!req.session.user) {
-      return res.send(null);
+      return res.send({});
     }
     const user = await User.findById(req.session.user._id);
     if (user) {
