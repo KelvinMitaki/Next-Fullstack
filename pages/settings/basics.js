@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import RadioInput from "../../components/RadioInput";
 import {
   Button,
   Segment,
@@ -12,8 +11,12 @@ import Layout from "../../components/Layout";
 import SettingsNav from "../../components/SettingsNav";
 import TextInput from "../../components/reduxForm/TextInput";
 import { reduxForm, Field } from "redux-form";
+import RadioButton from "../../components/reduxForm/RadioButton";
 
 export class basics extends Component {
+  state = {
+    changed: false
+  };
   render() {
     return (
       <Layout title="Basics">
@@ -28,11 +31,34 @@ export class basics extends Component {
                     type="text"
                     name="knownAs"
                     placeholder="Known As"
+                    onChange={() =>
+                      !this.state.changed && this.setState({ changed: true })
+                    }
                   />
                   <Form.Group inline>
                     <label>Gender: </label>
-                    <RadioInput type="radio" label="Male" />
-                    <RadioInput type="radio" label="Female" />
+                    <Field
+                      component={RadioButton}
+                      radioName="gender"
+                      radioValue="male"
+                      label="Male"
+                      value="male"
+                      name="gender"
+                      onChange={() =>
+                        !this.state.changed && this.setState({ changed: true })
+                      }
+                    />
+                    <Field
+                      component={RadioButton}
+                      radioName="gender"
+                      radioValue="female"
+                      label="Female"
+                      value="female"
+                      name="gender"
+                      onChange={() =>
+                        !this.state.changed && this.setState({ changed: true })
+                      }
+                    />
                   </Form.Group>
                   {/* <Field
             width={8}
@@ -49,14 +75,18 @@ export class basics extends Component {
                     name="homeTown"
                     placeholder="Home Town"
                     type="text"
+                    onChange={() =>
+                      !this.state.changed && this.setState({ changed: true })
+                    }
                   />
                   <Divider />
                   <Button
-                    disabled={true}
+                    disabled={!this.state.changed || this.props.pristine}
                     size="large"
                     positive
                     content="Update Profile"
                   />
+                  {/* {console.log(this.props)} */}
                 </Form>
               </Segment>
             </Grid.Column>
