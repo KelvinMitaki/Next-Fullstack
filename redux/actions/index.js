@@ -67,3 +67,14 @@ export const loginUser = formValues => async dispatch => {
     dispatch({ type: LOGIN_ERROR, payload: error.response.data.message });
   }
 };
+
+export const basicProfile = formValues => async dispatch => {
+  try {
+    dispatch({ type: LOADING_START });
+    await Axios.post("/api/update/user", formValues, { baseURL });
+    Router.push("/profile");
+    dispatch({ type: LOADING_STOP });
+  } catch (error) {
+    console.log(error.response);
+  }
+};

@@ -12,11 +12,32 @@ import SettingsNav from "../../components/SettingsNav";
 import TextInput from "../../components/reduxForm/TextInput";
 import { reduxForm, Field } from "redux-form";
 import RadioButton from "../../components/reduxForm/RadioButton";
+import { connect } from "react-redux";
+import { basicProfile } from "../../redux/actions";
+import router from "next/router";
 
 export class basics extends Component {
-  state = {
-    changed: false
-  };
+  componentDidMount() {
+    if (this.props.user && !this.props.user.isLoggedIn) {
+      router.replace("/login");
+    }
+  }
+  static async getInitialProps({ res, store }) {
+    if (
+      store &&
+      res &&
+      store.getState().auth.user &&
+      !store.getState().auth.user.isLoggedIn
+    ) {
+      res.writeHead(301, { location: "/login" });
+      res.end();
+      return { store };
+    }
+    return {
+      initialValues:
+        store.getState().auth.user && store.getState().auth.user.user
+    };
+  }
   render() {
     return (
       <Layout title="Basics">
@@ -25,39 +46,32 @@ export class basics extends Component {
             <Grid.Column width={12}>
               <Segment>
                 <Header dividing size="large" content="Basics" />
-                <Form>
+                <Form
+                  onSubmit={this.props.handleSubmit(formValues =>
+                    this.props.basicProfile(formValues)
+                  )}
+                >
                   <Field
                     component={TextInput}
                     type="text"
                     name="knownAs"
                     placeholder="Known As"
-                    onChange={() =>
-                      !this.state.changed && this.setState({ changed: true })
-                    }
                   />
                   <Form.Group inline>
                     <label>Gender: </label>
                     <Field
                       component={RadioButton}
-                      radioName="gender"
-                      radioValue="male"
                       label="Male"
                       value="male"
                       name="gender"
-                      onChange={() =>
-                        !this.state.changed && this.setState({ changed: true })
-                      }
+                      type="radio"
                     />
                     <Field
                       component={RadioButton}
-                      radioName="gender"
-                      radioValue="female"
                       label="Female"
                       value="female"
                       name="gender"
-                      onChange={() =>
-                        !this.state.changed && this.setState({ changed: true })
-                      }
+                      type="radio"
                     />
                   </Form.Group>
                   {/* <Field
@@ -75,16 +89,14 @@ export class basics extends Component {
                     name="homeTown"
                     placeholder="Home Town"
                     type="text"
-                    onChange={() =>
-                      !this.state.changed && this.setState({ changed: true })
-                    }
                   />
                   <Divider />
                   <Button
-                    disabled={!this.state.changed || this.props.pristine}
+                    disabled={this.props.pristine || this.props.loading}
                     size="large"
                     positive
                     content="Update Profile"
+                    loading={this.props.loading}
                   />
                   {/* {console.log(this.props)} */}
                 </Form>
@@ -109,5 +121,14 @@ export class basics extends Component {
     );
   }
 }
-
-export default reduxForm({ form: "basics" })(basics);
+const mapStateToProps = state => {
+  return {
+    loading: state.auth.loading,
+    user: state.auth.user
+  };
+};
+export default reduxForm({
+  form: "basics",
+  enableReinitialize: true,
+  destroyOnUnmount: false
+})(connect(mapStateToProps, { basicProfile })(basics));

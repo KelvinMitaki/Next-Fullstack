@@ -110,32 +110,15 @@ router.post(
   }
 );
 
-router.post(
-  "/api/update/user",
-  auth,
-  check("firstName")
-    .trim()
-    .isLength({ min: 2 })
-    .withMessage("first name must be two characters or more"),
-  check("lastName")
-    .trim()
-    .isLength({ min: 2 })
-    .withMessage("last name must be two characters or more"),
-  check("email").trim().isEmail().withMessage("email must be valid"),
-  async (req, res) => {
-    try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-        return res.status(401).send({ message: errors.array()[0].msg });
-      }
-      const { _id } = req.session.user;
-      const user = await User.findByIdAndUpdate(_id, req.body);
-      res.send(user);
-    } catch (error) {
-      res.status(500).send(error);
-    }
+router.post("/api/update/user", auth, async (req, res) => {
+  try {
+    const { _id } = req.session.user;
+    const user = await User.findByIdAndUpdate(_id, req.body);
+    res.send(user);
+  } catch (error) {
+    res.status(500).send(error);
   }
-);
+});
 
 router.post(
   "/api/follow/user",

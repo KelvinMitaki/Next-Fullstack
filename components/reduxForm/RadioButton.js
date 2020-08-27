@@ -5,10 +5,11 @@ const RadioButton = ({ input, label, radioName, radioValue }) => {
     <div>
       <input
         type="radio"
-        name={radioName}
+        // name={radioName}
+        {...input}
         style={{ marginLeft: "5px" }}
-        onChange={input.onChange}
-        value={radioValue}
+        // onChange={input.onChange}
+        // value={radioValue}
       />
       <label> {label} </label>
     </div>
