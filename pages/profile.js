@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Layout from "../components/Layout";
-import Link from "next/link";
+import router from "next/router";
 import {
   Grid,
   Segment,
@@ -13,6 +13,7 @@ import {
   Icon,
   Button
 } from "semantic-ui-react";
+import { connect } from "react-redux";
 
 const panes = [
   { menuItem: "All Events", pane: { key: "allEvents" } },
@@ -21,6 +22,24 @@ const panes = [
   { menuItem: "Hosting", pane: { key: "hosted" } }
 ];
 export class profile extends Component {
+  componentDidMount() {
+    console.log(this.props.user);
+    if (this.props.user && !this.props.user.isLoggedIn) {
+      router.replace("/login");
+    }
+  }
+  static async getInitialProps({ res, store }) {
+    if (
+      store &&
+      res &&
+      store.getState().auth.user &&
+      !store.getState().auth.user.isLoggedIn
+    ) {
+      res.writeHead(301, { location: "/login" });
+      res.end();
+    }
+    return { store };
+  }
   render() {
     return (
       <Layout title="Profile" user={this.props.user}>
@@ -146,5 +165,9 @@ export class profile extends Component {
     );
   }
 }
-
-export default profile;
+const mapStateToProps = state => {
+  return {
+    user: state.auth.user
+  };
+};
+export default connect(mapStateToProps)(profile);

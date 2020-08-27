@@ -5,7 +5,7 @@ import { reduxForm, Field } from "redux-form";
 import TextInput from "../components/reduxForm/TextInput";
 import validator from "validator";
 import { connect } from "react-redux";
-import { getMessage, registerUser } from "../redux/actions";
+import { registerUser } from "../redux/actions";
 import Link from "next/link";
 import router from "next/router";
 
@@ -14,6 +14,18 @@ export class register extends Component {
     if (this.props.user && this.props.user.isLoggedIn) {
       router.replace("/");
     }
+  }
+  static async getInitialProps({ res, store }) {
+    if (
+      store &&
+      res &&
+      store.getState().auth.user &&
+      store.getState().auth.user.isLoggedIn
+    ) {
+      res.writeHead(301, { location: "/" });
+      res.end();
+    }
+    return { store };
   }
   render() {
     return (
