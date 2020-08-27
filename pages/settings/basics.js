@@ -11,6 +11,7 @@ import {
 import Layout from "../../components/Layout";
 import SettingsNav from "../../components/SettingsNav";
 import TextInput from "../../components/reduxForm/TextInput";
+import { reduxForm, Field } from "redux-form";
 
 export class basics extends Component {
   render() {
@@ -22,7 +23,12 @@ export class basics extends Component {
               <Segment>
                 <Header dividing size="large" content="Basics" />
                 <Form>
-                  <TextInput placeholder="Known As" type="text" />
+                  <Field
+                    component={TextInput}
+                    type="text"
+                    name="knownAs"
+                    placeholder="Known As"
+                  />
                   <Form.Group inline>
                     <label>Gender: </label>
                     <RadioInput type="radio" label="Male" />
@@ -38,8 +44,12 @@ export class basics extends Component {
             dropdownMode="select"
             maxDate={addYears(new Date(), -18)}
           /> */}
-
-                  <TextInput type="text" placeholder="Home Town" />
+                  <Field
+                    component={TextInput}
+                    name="homeTown"
+                    placeholder="Home Town"
+                    type="text"
+                  />
                   <Divider />
                   <Button
                     disabled={true}
@@ -70,4 +80,4 @@ export class basics extends Component {
   }
 }
 
-export default basics;
+export default reduxForm({ form: "basics" })(basics);
