@@ -23,7 +23,6 @@ const panes = [
 ];
 export class profile extends Component {
   componentDidMount() {
-    console.log(this.props.user);
     if (this.props.user && !this.props.user.isLoggedIn) {
       router.replace("/login");
     }
@@ -41,6 +40,9 @@ export class profile extends Component {
     return { store };
   }
   render() {
+    const {
+      user: { firstName, lastName, createdAt }
+    } = this.props.user;
     return (
       <Layout title="Profile" user={this.props.user}>
         <div className="profile">
@@ -51,7 +53,9 @@ export class profile extends Component {
                   <Item>
                     <Item.Image avatar size="small" src="/1.png" />
                     <Item.Content verticalAlign="bottom">
-                      <Header as="h1">kevin mitaki </Header>
+                      <Header as="h1">
+                        {firstName} {lastName}{" "}
+                      </Header>
                       <br />
                       <Header as="h3">programmer </Header>
                       <br />
@@ -76,7 +80,8 @@ export class profile extends Component {
                     </p>
 
                     <p>
-                      Member Since: <strong> 2 May 2020 21:33</strong>
+                      Member Since:{" "}
+                      <strong>{new Date(createdAt).toDateString()} </strong>
                     </p>
                     <p>
                       Description of the user:
