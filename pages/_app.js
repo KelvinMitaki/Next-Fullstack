@@ -11,7 +11,9 @@ export class _app extends App {
     const appProps = await App.getInitialProps(ctx);
     const { store } = ctx.ctx;
     if (store) {
-      store.dispatch(currentUser());
+      store.dispatch(
+        currentUser(ctx.ctx && ctx.ctx.req ? ctx.ctx.req.headers.cookie : null)
+      );
     }
     return { ...appProps };
   }

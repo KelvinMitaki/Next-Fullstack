@@ -23,7 +23,7 @@ const panes = [
 export class profile extends Component {
   render() {
     return (
-      <Layout title="Profile">
+      <Layout title="Profile" user={this.props.user}>
         <div className="profile">
           <Grid stackable>
             <Grid.Column width={16}>

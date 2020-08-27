@@ -5,12 +5,13 @@ import Router from "next/router";
 import nProgress from "nprogress";
 import SignedInMenu from "./SignedInMenu";
 
-Router.onRouteChangeStart = url => {
+Router.onRouteChangeStart = () => {
   nProgress.start();
 };
 Router.onRouteChangeComplete = () => nProgress.done();
 Router.onRouteChangeError = () => nProgress.done();
-const Layout = ({ children, title }) => {
+const Layout = ({ children, title, user }) => {
+  // console.log(user);
   return (
     <React.Fragment>
       <Head>

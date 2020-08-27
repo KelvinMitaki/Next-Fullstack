@@ -24,10 +24,13 @@ export const getMessage = () => async dispatch => {
   }
 };
 
-export const currentUser = () => async dispatch => {
+export const currentUser = cookie => async dispatch => {
   try {
-    const res = await Axios.get("/api/current_user", { baseURL });
-    console.log(res.data);
+    const res = await Axios.get("/api/current_user", {
+      baseURL,
+      headers: { cookie }
+    });
+    // console.log(res.data);
     dispatch({ type: CURRENT_USER, payload: res.data });
   } catch (error) {
     console.log(error.response.data);
