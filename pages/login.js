@@ -9,6 +9,11 @@ import { connect } from "react-redux";
 import { loginUser } from "../redux/actions";
 
 export class login extends Component {
+  componentDidMount() {
+    if (this.props.user && this.props.user.isLoggedIn) {
+      router.replace("/");
+    }
+  }
   render() {
     return (
       <Layout title="Login">
@@ -106,6 +111,7 @@ const validate = formValues => {
 const mapStateToProps = state => {
   return {
     loading: state.auth.loading,
+    user: state.auth.user,
     loginError: state.auth.loginError
   };
 };

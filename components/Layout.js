@@ -29,7 +29,7 @@ const Layout = ({ children, title, user }) => {
             exact="true"
             name="Events"
           />
-          {user.isLoggedIn && (
+          {user && user.isLoggedIn && (
             <React.Fragment>
               <Menu.Item
                 as="a"
