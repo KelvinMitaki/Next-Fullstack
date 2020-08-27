@@ -99,7 +99,7 @@ router.post(
       }
       const isMatch = await bcrypt.compare(password, user.password);
       if (!isMatch) {
-        return res.status(401).send({ message: "passwords do not match" });
+        return res.status(401).send({ message: "Invalid email or password" });
       }
       req.session.user = user;
       req.session.isLoggedIn = true;
