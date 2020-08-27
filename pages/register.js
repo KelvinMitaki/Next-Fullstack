@@ -7,8 +7,14 @@ import validator from "validator";
 import { connect } from "react-redux";
 import { getMessage, registerUser } from "../redux/actions";
 import Link from "next/link";
+import router from "next/router";
 
 export class register extends Component {
+  componentDidMount() {
+    if (this.props.user && this.props.user.isLoggedIn) {
+      router.replace("/");
+    }
+  }
   render() {
     return (
       <Layout title="register">
@@ -128,6 +134,7 @@ const validate = formValues => {
 const mapStateToProps = state => {
   return {
     registerLoading: state.auth.registerLoading,
+    user: state.auth.user,
     registerError: state.auth.registerError
   };
 };

@@ -14,6 +14,18 @@ export class login extends Component {
       router.replace("/");
     }
   }
+  static async getInitialProps({ res, store }) {
+    if (
+      store &&
+      res &&
+      store.getState().auth.user &&
+      store.getState().auth.user.isLoggedIn
+    ) {
+      res.writeHead(301, { location: "/" });
+      res.end();
+    }
+    return { store };
+  }
   render() {
     return (
       <Layout title="Login">
