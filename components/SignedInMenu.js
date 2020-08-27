@@ -7,12 +7,16 @@ const SignedInMenu = ({
   photoURL,
   avatarUrl,
   displayName,
-  uid
+  uid,
+  user
 }) => {
+  const {
+    user: { firstName, lastName }
+  } = user;
   return (
     <Menu.Item position="right">
       <Image avatar spaced="right" src="/1.png" />
-      <Dropdown pointing="top left" text="kelvin mitaki">
+      <Dropdown pointing="top left" text={`${firstName} ${lastName}`}>
         <Dropdown.Menu>
           <Dropdown.Item>
             <Icon name="plus" />

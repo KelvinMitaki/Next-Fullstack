@@ -12,7 +12,6 @@ Router.onRouteChangeStart = () => {
 Router.onRouteChangeComplete = () => nProgress.done();
 Router.onRouteChangeError = () => nProgress.done();
 const Layout = ({ children, title, user }) => {
-  console.log(user);
   return (
     <React.Fragment>
       <Head>
@@ -30,24 +29,26 @@ const Layout = ({ children, title, user }) => {
             exact="true"
             name="Events"
           />
-          <Menu.Item
-            as="a"
-            onClick={() => Router.push("/profile")}
-            exact="true"
-            name="Profile"
-          />
-          <React.Fragment>
-            <Menu.Item>
-              <Button
+          {user.isLoggedIn && (
+            <React.Fragment>
+              <Menu.Item
                 as="a"
-                floated="right"
-                positive
-                inverted
-                content="Create Event"
-                onClick={() => Router.push("/new/event")}
+                onClick={() => Router.push("/profile")}
+                exact="true"
+                name="Profile"
               />
-            </Menu.Item>
-          </React.Fragment>
+              <Menu.Item>
+                <Button
+                  as="a"
+                  floated="right"
+                  positive
+                  inverted
+                  content="Create Event"
+                  onClick={() => Router.push("/new/event")}
+                />
+              </Menu.Item>
+            </React.Fragment>
+          )}
 
           <Menu.Item position="right">
             {user && user.isLoggedIn ? (
