@@ -143,4 +143,14 @@ router.post(
     }
   }
 );
+
+router.post("/api/logout", auth, (req, res) => {
+  try {
+    req.session.destroy(err =>
+      err ? res.redirect("/") : res.redirect("/login")
+    );
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
 module.exports = router;

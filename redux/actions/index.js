@@ -78,3 +78,12 @@ export const basicProfile = formValues => async dispatch => {
     console.log(error.response);
   }
 };
+
+export const logoutUser = () => async dispatch => {
+  try {
+    await Axios.post("/api/logout");
+    Router.replace("/login");
+  } catch (error) {
+    console.log(error.response);
+  }
+};
