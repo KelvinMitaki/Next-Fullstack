@@ -27,14 +27,9 @@ export const getMessage = () => async dispatch => {
 
 export const currentUser = cookie => async dispatch => {
   try {
-    const res = await fetch(
-      process.env.NODE_ENV === "development"
-        ? "http://localhost:3000/api/current_user"
-        : "https://next-fullstack.herokuapp.com/api/current_user",
-      {
-        headers: { cookie }
-      }
-    );
+    const res = await fetch("http://localhost:3000/api/current_user", {
+      headers: { cookie }
+    });
     const data = await res.json();
     dispatch({ type: CURRENT_USER, payload: data });
   } catch (error) {
